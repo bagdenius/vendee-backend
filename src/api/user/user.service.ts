@@ -25,6 +25,18 @@ export class UserService {
     return user;
   }
 
+  async toggleFavorite(userId: string, productId: string) {
+    const user = await this.getById(userId);
+    const isExist = user.favorites.some((product) => product.id === productId);
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: {
+        favorites: { [isExist ? 'disconnect' : 'connect']: { id: productId } },
+      },
+    });
+    return true;
+  }
+
   async create(dto: SignupDto) {
     const { name, email, password } = dto;
     return this.prisma.user.create({
