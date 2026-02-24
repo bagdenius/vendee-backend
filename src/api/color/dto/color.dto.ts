@@ -1,11 +1,11 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class ColorDto {
-  @IsString({ message: 'Color name should be a string' })
-  @IsNotEmpty({ message: 'Please enter the color name' })
+  @IsString({ message: 'Name must be a string' })
+  @IsNotEmpty({ message: 'Name is required' })
   name: string;
 
-  @IsString({ message: 'Color value should be a string' })
-  @IsNotEmpty({ message: 'Please enter the color value' })
+  @IsString({ message: 'Value must be a string' })
+  @IsNotEmpty({ message: 'Value is required' })
   value: string;
 }

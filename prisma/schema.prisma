@@ -38,8 +38,8 @@ model Store {
   reviews    Review[]
   orderItems OrderItem[]
 
-  user   User?   @relation(fields: [userId], references: [id])
-  userId String? @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
 
   @@map("stores")
 }
@@ -58,12 +58,12 @@ model Product {
   orderItems  OrderItem[]
   favoritedBy User[]      @relation("user_favorites")
 
-  store      Store?    @relation(fields: [storeId], references: [id])
-  storeId    String?   @map("store_id")
-  category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?   @map("category_id")
-  color      Color?    @relation(fields: [colorId], references: [id])
-  colorId    String?   @map("color_id")
+  store      Store    @relation(fields: [storeId], references: [id])
+  storeId    String   @map("store_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id")
+  color      Color    @relation(fields: [colorId], references: [id])
+  colorId    String   @map("color_id")
 
   @@map("products")
 }
@@ -78,8 +78,8 @@ model Category {
 
   products Product[]
 
-  store   Store?  @relation(fields: [storeId], references: [id])
-  storeId String? @map("store_id")
+  store   Store  @relation(fields: [storeId], references: [id])
+  storeId String @map("store_id")
 
   @@map("categories")
 }
@@ -94,8 +94,8 @@ model Color {
 
   products Product[]
 
-  store   Store?  @relation(fields: [storeId], references: [id])
-  storeId String? @map("store_id")
+  store   Store  @relation(fields: [storeId], references: [id])
+  storeId String @map("store_id")
 
   @@map("colors")
 }
@@ -108,12 +108,12 @@ model Review {
   text   String
   rating Int
 
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?  @map("user_id")
-  product   Product? @relation(fields: [productId], references: [id])
-  productId String?  @map("product_id")
-  store     Store?   @relation(fields: [storeId], references: [id])
-  storeId   String?  @map("store_id")
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @map("user_id")
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @map("product_id")
+  store     Store   @relation(fields: [storeId], references: [id])
+  storeId   String  @map("store_id")
 
   @@map("reviews")
 }
@@ -128,8 +128,8 @@ model Order {
 
   items OrderItem[]
 
-  user   User?   @relation(fields: [userId], references: [id])
-  userId String? @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
 
   @@map("orders")
 }
@@ -141,12 +141,12 @@ model OrderItem {
   quantity  Int
   price     Int
 
-  order     Order?   @relation(fields: [orderId], references: [id])
-  orderId   String?  @map("order_id")
-  product   Product? @relation(fields: [productId], references: [id])
-  productId String?  @map("product_id")
-  store     Store?   @relation(fields: [storeId], references: [id])
-  storeId   String?  @map("store_id")
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String  @map("order_id")
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @map("product_id")
+  store     Store   @relation(fields: [storeId], references: [id])
+  storeId   String  @map("store_id")
 
   @@map("order_items")
 }

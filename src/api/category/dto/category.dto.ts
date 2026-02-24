@@ -1,11 +1,11 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CategoryDto {
-  @IsString({ message: 'Category title should be a string' })
-  @IsNotEmpty({ message: 'Please enter the category title' })
+  @IsString({ message: 'Title must be a string' })
+  @IsNotEmpty({ message: 'Title is required' })
   title: string;
 
-  @IsString({ message: 'Category description should be a string' })
-  @IsNotEmpty({ message: 'Please enter the category description' })
+  @IsString({ message: 'Description must be a string' })
+  @IsNotEmpty({ message: 'Description is required' })
   description: string;
 }

@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateStoreDto {
-  @IsString({ message: 'Store title should be a string' })
-  @IsNotEmpty({ message: 'Please enter the store title' })
+  @IsString({ message: 'Title must be a string' })
+  @IsNotEmpty({ message: 'Title is required' })
   title: string;
 }
