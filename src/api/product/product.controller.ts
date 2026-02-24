@@ -39,13 +39,13 @@ export class ProductController {
     return await this.productService.getSimilar(id);
   }
 
-  @Get('/store/:storeId')
+  @Get('store/:storeId')
   @Auth()
   async getByStoreId(@Param('id') storeId: string) {
     return await this.productService.getByStoreId(storeId);
   }
 
-  @Post('/store/:storeId')
+  @Post('store/:storeId')
   @Auth()
   @HttpCode(201)
   @UsePipes(new ValidationPipe())
@@ -53,7 +53,7 @@ export class ProductController {
     return await this.productService.create(storeId, dto);
   }
 
-  @Put('/:id')
+  @Put(':id')
   @Auth()
   @HttpCode(200)
   @UsePipes(new ValidationPipe())
@@ -61,7 +61,7 @@ export class ProductController {
     return await this.productService.update(id, dto);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   @Auth()
   @HttpCode(204)
   async delete(@Param('id') id: string) {

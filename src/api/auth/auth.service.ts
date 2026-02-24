@@ -47,7 +47,6 @@ export class AuthService {
 
   async refresh(request: Request, response: Response) {
     const refreshToken = request.cookies.refreshToken;
-    console.log(refreshToken);
     if (!refreshToken) throw new UnauthorizedException('Invalid refresh token');
     const payload: JwtPayload = await this.jwtService.verifyAsync(refreshToken);
     if (payload) {
@@ -119,7 +118,6 @@ export class AuthService {
       });
     }
     const { accessToken } = this.auth(response, user.id);
-    console.log(response.getHeader('set-cookie'));
     return response.redirect(
       `${this.configService.getOrThrow<string>('CLIENT_URL')}/dashboard?accessToken=${accessToken}`,
     );

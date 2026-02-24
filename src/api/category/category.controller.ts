@@ -24,13 +24,13 @@ export class CategoryController {
     return await this.categoryService.getById(id);
   }
 
-  @Get('/store/:storeId')
+  @Get('store/:storeId')
   @Auth()
   async getByStorestoreId(@Param('id') storeId: string) {
     return await this.categoryService.getByStoreId(storeId);
   }
 
-  @Post('/store/:storeId')
+  @Post('store/:storeId')
   @Auth()
   @HttpCode(201)
   @UsePipes(new ValidationPipe())
@@ -38,7 +38,7 @@ export class CategoryController {
     return await this.categoryService.create(storeId, dto);
   }
 
-  @Put('/:id')
+  @Put(':id')
   @Auth()
   @HttpCode(200)
   @UsePipes(new ValidationPipe())
@@ -46,7 +46,7 @@ export class CategoryController {
     return await this.categoryService.update(id, dto);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   @Auth()
   @HttpCode(204)
   async delete(@Param('id') id: string) {
