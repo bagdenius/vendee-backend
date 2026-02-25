@@ -1,4 +1,4 @@
-export interface LiqPayData {
+export interface LiqPayRequestData {
   // main params
   version: number; // current - 7
   action: LiqPayRequestAction;
@@ -38,7 +38,7 @@ export interface LiqPayData {
   product_url?: string;
 }
 
-export interface LiqPayRequestData extends LiqPayData {
+export interface LiqPayRequest extends LiqPayRequestData {
   public_key: string;
 }
 

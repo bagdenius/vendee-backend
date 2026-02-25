@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
-  LiqPayData,
   LiqPayPaymentResponse,
+  LiqPayRequestData,
   LiqPayRroInfo,
   LiqPayRroInfoItem,
 } from '../../common/interfaces';
@@ -30,7 +30,6 @@ export class OrderService {
 
   async createPayment(dto: OrderDto, userId: string, userEmail: string) {
     const { status, items } = dto;
-
     const orderItems = items.map((item) => {
       const { quantity, price, productId, storeId } = item;
       return {
@@ -40,12 +39,10 @@ export class OrderService {
         store: { connect: { id: storeId } },
       };
     });
-
     const total = items.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0,
     );
-
     const order = await this.prisma.order.create({
       data: {
         status,
@@ -54,20 +51,17 @@ export class OrderService {
         user: { connect: { id: userId } },
       },
     });
-
     const rroItems: LiqPayRroInfoItem[] = items.map((item, index) => ({
       amount: item.quantity,
       price: item.price,
       cost: item.price * item.quantity,
       id: index + 1,
     }));
-
     const rro_info: LiqPayRroInfo = {
       items: rroItems,
       delivery_emails: [userEmail],
     };
-
-    const liqPayData: LiqPayData = {
+    const liqPayData: LiqPayRequestData = {
       version: 7,
       action: 'pay',
       amount: total / 100,
@@ -78,16 +72,15 @@ export class OrderService {
       result_url: this.resultUrl,
       server_url: this.callbackUrl,
     };
-
     return { checkoutUrl: this.liqpay.getCheckoutUrl(liqPayData) };
   }
 
   async updateStatus(dto: LiqPayPaymentResponse) {
     if (!this.liqpay.isValidSignature(dto))
       throw new UnauthorizedException('Invalid signature');
-    const payment = this.liqpay.getDecodedData(dto.data);
+    const payment = this.liqpay.decodeData(dto.data);
     if (payment.status === 'success')
-      await this.prisma.order.update({
+      return await this.prisma.order.update({
         where: { id: payment.order_id },
         data: { status: 'PAID' },
       });
