@@ -40,7 +40,6 @@ export class ProductController {
   }
 
   @Get('store/:storeId')
-  @Auth()
   async getByStoreId(@Param('storeId') storeId: string) {
     return await this.productService.getByStoreId(storeId);
   }
