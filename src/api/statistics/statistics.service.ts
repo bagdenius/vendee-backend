@@ -39,11 +39,11 @@ export class StatisticsService {
   }
 
   private async countProducts(storeId: string) {
-    return this.prisma.product.findMany({ where: { storeId } });
+    return this.prisma.product.count({ where: { storeId } });
   }
 
   private async countCategories(storeId: string) {
-    return this.prisma.category.findMany({ where: { storeId } });
+    return this.prisma.category.count({ where: { storeId } });
   }
 
   private async calculateAverageRating(storeId: string) {
@@ -55,7 +55,7 @@ export class StatisticsService {
     )._avg.rating;
   }
 
-  private async calculateMonthlySales(storeId) {
+  private async calculateMonthlySales(storeId: string) {
     const formatDate = (date: Date): string =>
       `${monthNames.at(date.getMonth())} ${date.getDate()}`;
 
