@@ -24,7 +24,7 @@ export class ReviewService {
   async getByStoreId(storeId: string) {
     return await this.prisma.review.findMany({
       where: { storeId },
-      include: { user: true },
+      include: { user: true, product: true },
     });
   }
 
