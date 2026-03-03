@@ -24,7 +24,7 @@ export class ColorController {
   }
 
   @Get('store/:storeId')
-  async getByStoreId(@Param('id') storeId: string) {
+  async getByStoreId(@Param('storeId') storeId: string) {
     return await this.colorService.getByStoreId(storeId);
   }
 

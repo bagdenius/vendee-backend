@@ -24,7 +24,7 @@ export class CategoryController {
   }
 
   @Get('store/:storeId')
-  async getByStorestoreId(@Param('id') storeId: string) {
+  async getByStorestoreId(@Param('storeId') storeId: string) {
     return await this.categoryService.getByStoreId(storeId);
   }
 
