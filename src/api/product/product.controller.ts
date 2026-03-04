@@ -44,6 +44,11 @@ export class ProductController {
     return await this.productService.getByStoreId(storeId);
   }
 
+  @Get('category/:categoryId')
+  async getByCategoryId(@Param('categoryId') categoryId: string) {
+    return await this.productService.getByCategoryId(categoryId);
+  }
+
   @Post('store/:storeId')
   @Auth()
   @HttpCode(201)
